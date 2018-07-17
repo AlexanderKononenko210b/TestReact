@@ -1,12 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-//import Article from './Article';
 import { articles } from './fixtures'
-import ArticleList from './components/ArticleList'
+import App from './components/App'
 
-// eslint-disable-next-line
-function HelloReact()
-{
-    return <h1>Hello World! I learn React!</h1>
-}
-render(<ArticleList articles = {articles}/>, document.getElementById('container'));
+render(<App articles = {articles}/>, document.getElementById('container'));
