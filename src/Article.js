@@ -1,8 +1,18 @@
 import React, {Component} from 'react'
-//import Comment from './Comment'
+import PropTypes from 'prop-types'
+import CommentList from './CommentList'
 
 // то что приходит в props или state существует только на чтение
 export default class Article extends Component {
+    // PropTypes нужны для динамической проверки типов
+    // ими мы можем выставлять требования на входящие в компонент данные
+    static propTypes = {
+        article: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+            text: PropTypes.string
+        }).isRequired
+    }
     constructor(props){
         super(props);
         this.state = {
@@ -31,7 +41,12 @@ export default class Article extends Component {
     getBody () {
         if(!this.state.isOpen) return null
         const {article} = this.props
-        return <section>{article.text}</section>
+        return (       
+        <section>
+            {article.text}
+            <CommentList comments = {article}/>
+        </section>
+        )
     }
 
     /*= () => - это еще один вариант привязки те помечаем как error-function*/ 
