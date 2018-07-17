@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {findDOMNode} from 'react-dom'
 import PropTypes from 'prop-types'
 import CommentList from './CommentList'
 import toggleOpen from '../decorators/toggleOpen'
@@ -69,7 +70,7 @@ class Article extends Component {
         return (       
         <section>
             {article.text}
-            <CommentList comments = {article.comments}/>
+            <CommentList comments = {article.comments} ref = {this.setCommentsRef}/>
         </section>
         )
     }
@@ -91,6 +92,11 @@ class Article extends Component {
         })
         //Здесь еще старое состояние isOpen и оно поменяется только рендеренге
         console.log('____', this.state.isOpen);
+    }
+    // использую ref и функцию в которой мы используем метод findDOMNode передавая
+    // туда ref мы получим дом элемент на который повесили ref
+    setCommentsRef = ref => {
+        console.log('---', findDOMNode(ref))
     }
 }
 
