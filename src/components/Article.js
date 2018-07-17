@@ -24,13 +24,25 @@ class Article extends Component {
         //}
         /*this.toggleOpen = this.toggleOpen.bind(this); - этим мы привязываем this к нашему инстансу*/
     //}
+
+    componentWillReceiveProps(nextProps) {
+        console.log('----', 'updating', this.props.isOpen, nextProps.isOpen);
+    }
+
+    componentWillMount(){
+        console.log('----', 'mounting');
+    }
        
     render() {
         const {article, isOpen, toggleOpen} = this.props
         //Если менялось состояние, то оно появится только при рендеринге
         console.log('____rendering:', isOpen);
         return (
-            <div>
+            // и здесь мы можем с этой нодой работать, получать размеры и тд
+            // но это не хорошо тк анонимная функция будет вызываться при каждом вызове метода рендер
+            // и вызываться она будет дважды
+            //<div ref = {(node) => console.log(node)}>
+            <div ref = {this.setContainerRef}>
                 <h3>{article.title}</h3>
                 <button onClick = {toggleOpen}>
                     {isOpen ? 'Close' : 'Open'}
@@ -38,6 +50,17 @@ class Article extends Component {
                 {this.getBody()}
             </div>
         )
+    }
+
+    // более правильный путь сделать отдельную функцию и 
+    // и вызвать ее
+    setContainerRef = ref => {
+        this.container = ref
+        console.log('----', ref)
+    }
+
+    componentDidMount () {
+        console.log('----', 'mounted');
     }
     
     getBody () {
