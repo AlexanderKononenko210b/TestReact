@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import CommentList from './CommentList'
+import toggleOpen from '../decorators/toggleOpen'
 
 // то что приходит в props или state существует только на чтение
-export default class Article extends Component {
+class Article extends Component {
     // PropTypes нужны для динамической проверки типов
     // ими мы можем выставлять требования на входящие в компонент данные
     static propTypes = {
@@ -13,24 +14,25 @@ export default class Article extends Component {
             text: PropTypes.string
         }).isRequired
     }
-    constructor(props){
-        super(props);
-        this.state = {
-            isOpen: false
+    
+    //вынесен в декоратор toggleOpen
+    //constructor(props){
+        //super(props);
+        //this.state = {
+            //isOpen: false
             /*сюда вносить только то что изменяется в процессе жизни приложения*/
-        }
+        //}
         /*this.toggleOpen = this.toggleOpen.bind(this); - этим мы привязываем this к нашему инстансу*/
-    }
+    //}
        
     render() {
-        const {article} = this.props
-        const {isOpen} = this.state
+        const {article, isOpen, toggleOpen} = this.props
         //Если менялось состояние, то оно появится только при рендеринге
         console.log('____rendering:', isOpen);
         return (
             <div>
                 <h3>{article.title}</h3>
-                <button onClick = {this.toggleOpen}>
+                <button onClick = {toggleOpen}>
                     {isOpen ? 'Close' : 'Open'}
                 </button>
                 {this.getBody()}
@@ -39,12 +41,12 @@ export default class Article extends Component {
     }
     
     getBody () {
-        if(!this.state.isOpen) return null
-        const {article} = this.props
+        const {article, isOpen} = this.props
+        if(!isOpen) return null
         return (       
         <section>
             {article.text}
-            <CommentList comments = {article}/>
+            <CommentList comments = {article.comments}/>
         </section>
         )
     }
@@ -80,3 +82,5 @@ export default function Article(props) {
         </div>
     )
 }*/
+
+export default toggleOpen(Article)
