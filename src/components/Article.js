@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {findDOMNode} from 'react-dom'
 import PropTypes from 'prop-types'
 import CommentList from './CommentList'
-import toggleOpen from '../decorators/toggleOpen'
+
 
 // то что приходит в props или state существует только на чтение
 class Article extends Component {
@@ -112,4 +112,4 @@ export default function Article(props) {
     )
 }*/
 
-export default toggleOpen(Article)
+export default Article
