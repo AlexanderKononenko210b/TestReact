@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {findDOMNode} from 'react-dom'
 import PropTypes from 'prop-types'
 import CommentList from './CommentList'
 
 
 // то что приходит в props или state существует только на чтение
-class Article extends Component {
+class Article extends PureComponent {
     // PropTypes нужны для динамической проверки типов
     // ими мы можем выставлять требования на входящие в компонент данные
     static propTypes = {
@@ -26,16 +26,13 @@ class Article extends Component {
         /*this.toggleOpen = this.toggleOpen.bind(this); - этим мы привязываем this к нашему инстансу*/
     //}
 
-    componentWillReceiveProps(nextProps) {
-        console.log('----', 'updating', this.props.isOpen, nextProps.isOpen);
-    }
+    //shouldComponentUpdate(nextProps, nextState) {
+        //return nextProps.isOpen !== this.props.isOpen
+    //}
 
-    componentWillMount(){
-        console.log('----', 'mounting');
-    }
-       
     render() {
         const {article, isOpen, toggleOpen} = this.props
+        console.log('---', 'update article')
         //Если менялось состояние, то оно появится только при рендеринге
         console.log('____rendering:', isOpen);
         return (
