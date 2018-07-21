@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {findDOMNode} from 'react-dom'
 import PropTypes from 'prop-types'
-import CommentList from './CommentList'
+import CommentList from '../Components/CommentList'
 
 
 // то что приходит в props или state существует только на чтение
