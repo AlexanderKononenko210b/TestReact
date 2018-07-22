@@ -1,21 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react'
+import ArticleList from './Components/ArticleList'
+import ArticleChart from './Components/ArticlesChart'
+import CommentsForm from './CommentsForm'
+import Filters from './Filters'
+import Counter from './Components/Counter'
 
+//здесь мы работаем со сторонней библиотекой как с обычным компонентом
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+
+        
+    render () {
+
+        return (
+            <div>
+                <Counter/>
+                <CommentsForm/>
+                <Filters articles = {[]} />
+                <ArticleList />
+            </div>
+        )
+    }
 }
 
-export default App;
+export default App

@@ -2,6 +2,8 @@ import React, {PureComponent} from 'react'
 import {findDOMNode} from 'react-dom'
 import PropTypes from 'prop-types'
 import CommentList from '../Components/CommentList'
+import {connect} from 'react-redux'
+import {deleteArticle} from '../AC'
 
 
 // то что приходит в props или state существует только на чтение
@@ -45,9 +47,16 @@ class Article extends PureComponent {
                 <button onClick = {toggleOpen}>
                     {isOpen ? 'Close' : 'Open'}
                 </button>
+                <button onClick = {this.handleDelete}>delete me</button>
                 {this.getBody()}
             </div>
         )
+    }
+
+    handleDelete = () => {
+        const {deleteArticle, article} = this.props
+        deleteArticle(article.id)
+        console.log('---', 'deleting');
     }
 
     // более правильный путь сделать отдельную функцию и 
@@ -109,4 +118,5 @@ export default function Article(props) {
     )
 }*/
 
-export default Article
+//нам не нужно ничего доставать из стора, поэтому первый аргумент null
+export default connect(null,{deleteArticle})(Article)
